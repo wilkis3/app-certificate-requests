@@ -26,6 +26,8 @@ jobs:
         if: ${{ steps.changed_csrs.outputs.csr_files }}
         run: |
           for csr in ${{ steps.changed_csrs.outputs.csr_files }}; do
+            echo $csr
             filename=$(echo $csr | awk -F "[/.]" '{ print $2 }')
+            echo $filename
             openssl req -in $csr -noout -subject | awk -v app_id="$filename" -F "=" '{ if ($3==app_id) { exit 0 } else { exit 1 }}'
           done
