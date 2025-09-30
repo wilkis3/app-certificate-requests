@@ -21,6 +21,8 @@ jobs:
         run: |
           files=$(git diff --name-only --diff-filter=AMR ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep '\.csr$' | xargs)
           echo "csr_files=$files" >> $GITHUB_OUTPUT
+          echo $files
+          echo $GITHUB_OUTPUT
 
       - name: Validate each CSR
         if: ${{ steps.changed_csrs.outputs.csr_files }}
