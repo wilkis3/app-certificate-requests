@@ -29,6 +29,4 @@ jobs:
             filename=$(echo $csr | awk -F "[/.]" '{ print $2 }')
             subject=$(cat $csr | openssl req -noout -subject)
             echo $subject | awk -v app_id="$filename" -F "[= ]" '{ if ($5==app_id) { exit 0 } else { print $5 }}'
-            printf "Subject1: [%s]\n" "$subject"
-            printf "Subject2: %q\n" "$subject"
           done
