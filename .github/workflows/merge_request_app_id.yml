@@ -32,5 +32,5 @@ jobs:
             echo $filename
             ls -l $filename
             cat $csr
-            openssl req -in $csv -noout -subject | awk -v app_id="$filename" -F "=" '{ if ($3==app_id) { print app_id } else { print app_id }}'
+            openssl req -in $csv -noout -subject
           done
