@@ -21,8 +21,6 @@ jobs:
         run: |
           files=$(git diff --name-only --diff-filter=AMR ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep '\.csr$' | xargs)
           echo "csr_files=$files" >> $GITHUB_OUTPUT
-          echo $files
-          echo $GITHUB_OUTPUT
 
       - name: Validate each CSR
         if: ${{ steps.changed_csrs.outputs.csr_files }}
@@ -33,5 +31,5 @@ jobs:
             filename=$(echo $csr | awk -F "[/.]" '{ print $2 }')
             echo $filename
             ls -l $filename
-            openssl req -in $csr -noout -subject | awk -v app_id="$filename" -F "=" '{ if ($3==app_id) { exit 0 } else { exit 1 }}'
+            openssl req -in $filename.csv -noout -subject | awk -v app_id="$filename" -F "=" '{ if ($3==app_id) { exit 0 } else { exit 1 }}'
           done
