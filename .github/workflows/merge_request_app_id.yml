@@ -32,6 +32,6 @@ jobs:
             ls -l $filename
             cat $csr
             set -x
-            openssl req -in "$csv" -noout -subject
+            openssl req -in $csv -noout -subject
             set +x
           done
