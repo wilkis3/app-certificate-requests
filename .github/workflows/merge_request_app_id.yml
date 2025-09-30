@@ -28,7 +28,7 @@ jobs:
           for csr in ${{ steps.changed_csrs.outputs.csr_files }}; do
             filename=$(echo $csr | awk -F "[/.]" '{ print $2 }')
             subject=$(cat $csr | openssl req -noout -subject)
-            echo $subject | awk -v app_id="$filename" -F "[= ]" '{ if ($3==app_id) { exit 0 } else { exit 1 }}'
+            echo $subject | awk -v app_id="$filename" -F "[= ]" '{ if ($3==app_id) { exit 0 } else { print $3 }}'
             printf "Subject1: [%s]\n" "$subject"
             printf "Subject2: %q\n" "$subject"
           done
