@@ -26,12 +26,7 @@ jobs:
         if: ${{ steps.changed_csrs.outputs.csr_files }}
         run: |
           for csr in ${{ steps.changed_csrs.outputs.csr_files }}; do
-            echo $csr
             filename=$(echo $csr | awk -F "[/.]" '{ print $2 }')
-            echo $filename
-            ls -l $filename
-            cat $csr
-            set -x
-            openssl req -in $csv -noout -subject
-            set +x
+            subject=$(openssl req -in $csv -noout -subject)
+            echo $subject
           done
